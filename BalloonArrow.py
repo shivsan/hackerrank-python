@@ -12,39 +12,13 @@ class Solution:
 
         return [left, right]
 
-    def getMinimumArrowsRec(self, points: List[List[int]],
-                            pointIndex: int,
-                            overLap: Tuple[int, int],
-                            memo: dict) -> int:
-        if pointIndex >= len(points):
-            return 0
-
-        if memo.get(pointIndex) is not None:
-            return memo[pointIndex]
-
-        # If there is no overlap, then new arrow
-        if overLap is None:
-            overLap = [points[pointIndex][0], points[pointIndex][1]]
-            result = self.getMinimumArrowsRec(points, pointIndex + 1, overLap, memo) + 1
-            memo[pointIndex] = result
-            return result
-
-        if self.getOverLap(overLap, points[pointIndex]) is None:
-            result = self.getMinimumArrowsRec(points, pointIndex + 1, None, memo) + 1
-            memo[pointIndex] = result
-            return result
-
-        # If there is overlap, get the minimum of the options with picking the balloon or not
-        result = min(self.getMinimumArrowsRec(points, pointIndex + 1, None, memo),  # skip
-                     self.getMinimumArrowsRec(points, pointIndex + 1, self.getOverLap(overLap, points[pointIndex]),
-                                              memo))  # Take
-        memo[pointIndex] = result
-        return result
-
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         points.sort(key=lambda point: point[0])
-        memo = {}
-        self.getMinimumArrowsRec(points, 0, None, memo)
+        arrows = 1
 
-        print(points)
-        return memo.get(0)
+        firstArrowEnd = points[0][1]
+        for s, e in points:
+            if s > firstArrowEnd:
+                arrows += 1
+                firstArrowEnd = e
+        return arrows
