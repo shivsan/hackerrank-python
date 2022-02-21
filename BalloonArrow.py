@@ -17,8 +17,14 @@ class Solution:
         arrows = 1
 
         firstArrowEnd = points[0][1]
+        firstArrowStart = points[0][0]
+
         for s, e in points:
-            if s > firstArrowEnd:
+            if s <= firstArrowEnd and e >= firstArrowStart:
+                firstArrowStart = max(firstArrowStart, s)
+                firstArrowEnd = min(firstArrowEnd, e)
+            else:
                 arrows += 1
+                firstArrowStart = s
                 firstArrowEnd = e
         return arrows
