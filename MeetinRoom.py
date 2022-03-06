@@ -11,7 +11,7 @@ class Solution:
         heapq.heappush(rooms, intervals[0][1])
 
         for s, e in intervals[1:]:
-            if rooms[0] < s:
+            if rooms[0] <= s:
                 heapq.heappop(rooms)
             heapq.heappush(rooms, e)
 

@@ -9,6 +9,7 @@ class TestSolution(TestCase):
 
         self.assertEquals(solution.minMeetingRooms([[0, 30], [5, 10], [15, 20]]), 2)
         self.assertEquals(solution.minMeetingRooms([[7, 10], [2, 4]]), 1)
+        self.assertEquals(solution.minMeetingRooms([[13, 15], [1, 13]]), 1)
 
     def test_binary_search_greater_than_equal_to(self):
         solution = Solution()
